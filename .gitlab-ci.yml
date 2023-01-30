@@ -1,0 +1,70 @@
+include:  
+  - project: "dep/library/ci-library"    
+    ref: production    
+    file: "main.yml"
+
+#stages:
+# - build-application
+
+build-application:
+  stage: build-application
+  image: maven:3.8.6-openjdk-11
+  script:
+    - mvn -f Fms/pom.xml clean package
+  artifacts:
+    #name: "$CI_JOB_NAME"
+    paths:
+      - Fms/target/*.jar
+  
+build-image:
+  extends: .java-job-with-web-requests
+  stage: build-image
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
+  script:
+     - CopyCertsToDirectory "/kaniko/ssl/certs"
+     - mkdir -p /kaniko/.docker
+     - echo "{\"auths\":{\"${CI_REGISTRY}\":{\"auth\":\"$(printf "%s:%s" "${CI_REGISTRY_USER}" "${CI_REGISTRY_PASSWORD}" | base64 | tr -d '\n')\"}}}" > /kaniko/.docker/config.json
+     - >-
+      /kaniko/executor
+      --context "${CI_PROJECT_DIR}"
+      --dockerfile "${CI_PROJECT_DIR}/Dockerfile"
+      --destination "${CI_REGISTRY_IMAGE}:devlop"
+
+sonarqube-check:
+  stage: analysis
+  image: maven:3.8.6-openjdk-11
+  variables:
+    SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"  # Defines the location of the analysis task cache
+    GIT_DEPTH: "0"  # Tells git to fetch all the branches of the project, required by the analysis task
+  cache:
+    key: "${CI_JOB_NAME}"
+    paths:
+      - .sonar/cache
+  script:
+    - mvn verify sonar:sonar -Dsonar.qualitygate.wait=true
+  allow_failure: true
+  only:
+    - merge_requests
+    - master
+    - devlop
+    
+# auto-deploy:
+#   extends: .java-job-with-web-requests
+#   stage: deploy
+#   image: widerin/openshift-cli:v4.2
+#   before_script:
+#     - oc login --server="$OPENSHIFT_URL" --token="$OPENSHIFT_TOKEN"
+#     - oc project "$OPENSHIFT_PROJECT"
+#     - oc version
+#   script:
+#     - oc new-app --strategy=docker --binary --name ${CI_PROJECT_NAME} || true
+#     - oc start-build ${CI_PROJECT_NAME} --from-dir .
+#     - oc expose dc/${CI_PROJECT_NAME} --port 8080 && oc expose svc/${CI_PROJECT_NAME} || true
+#   after_script:
+#     - oc logout
+
+
+
+
