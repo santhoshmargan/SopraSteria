@@ -1,0 +1,89 @@
+<div class="main-wrapper image" fxLayout="row" fxLayoutAlign="center center">
+
+    <mat-card class="booking-box">
+
+        <mat-card-actions class="form-control-font">
+            <div fxLayout="row" [ngClass]="{'space': !roundTrip, 'margin-left':roundTrip}">
+                <button mat-raised-button color="primary" style="height:40px" (click)="getMyBookings()">
+                    Confirmed bookings
+                </button>
+            </div>
+            <mat-card-header>
+                <h2 class="font-style">Book Domestic and International Flight Tickets</h2>
+            </mat-card-header>
+            <div [ngClass]="{'space': !roundTrip, 'margin-left':roundTrip}">
+                <input type="radio" style="font-size: large;" name="tripType" (change)="isRoundTrip(false)"
+                    [checked]="!roundTrip">
+                <mat-label>One-way</mat-label>
+                <input type="radio" style="font-size: large;" name="tripType" (change)="isRoundTrip(true)">
+                <mat-label>Round-trip</mat-label>
+            </div>
+        </mat-card-actions>
+
+        <form class="example-form" fxLayout="column" [formGroup]="bookingForm">
+            <mat-card-content fxLayout="row" fxLayoutAlign="center center" class="form-control-font">
+                <mat-form-field appearance="outline" class="form-margin">
+                    <mat-label>From</mat-label>
+                    <mat-hint><strong>Source</strong></mat-hint>
+                    <mat-icon matSuffix>my_location</mat-icon>
+                    <mat-select (selectionChange)="onSourceChange($event.value)" formControlName="source">
+                        <mat-option>Select source</mat-option>
+                        <mat-option *ngFor="let source of sources" [value]="source">{{source.code}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="form-margin">
+                    <mat-label>To</mat-label>
+                    <mat-hint><strong>Destination</strong></mat-hint>
+                    <mat-icon matSuffix>place</mat-icon>
+                    <mat-select [disabled]="!destinations?.length" formControlName="destination">
+                        <mat-option>Select destination</mat-option>
+                        <mat-option *ngFor="let destination of destinations" [value]="destination">
+                            {{destination.code}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="form-margin">
+                    <mat-label>Departure</mat-label>
+                    <mat-hint><strong>(Departure date)</strong></mat-hint>
+                    <input matInput [matDatepicker]="picker2" [readonly]="true" formControlName="departureDate">
+                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                    <mat-datepicker #picker2></mat-datepicker>
+                </mat-form-field>
+
+                <mat-form-field *ngIf="roundTrip" appearance="outline" class="form-margin">
+                    <mat-label>Return</mat-label>
+                    <mat-hint><strong>(Return date)</strong></mat-hint>
+                    <input matInput [matDatepicker]="picker1" formControlName="returnDate">
+                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-datepicker #picker1></mat-datepicker>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="form-margin">
+                    <mat-label>Adults</mat-label>
+                    <mat-icon matSuffix>supervised_user_circle</mat-icon>
+                    <mat-hint><strong>(Aged 12+ yrs)</strong></mat-hint>
+                    <input matInput type="number" formControlName="adults">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="form-margin">
+                    <mat-label>Children</mat-label>
+                    <mat-icon matSuffix>person_2</mat-icon>
+                    <mat-hint><strong>(Aged 2-12 yrs)</strong></mat-hint>
+                    <input matInput type="number" formControlName="childrens">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="form-margin">
+                    <mat-label>Infants</mat-label>
+                    <mat-icon matSuffix>child_care</mat-icon>
+                    <mat-hint><strong>(Below 1 yrs)</strong></mat-hint>
+                    <input matInput type="number" formControlName="infants">
+                </mat-form-field>
+            </mat-card-content>
+            <mat-card-header>
+                <button mat-raised-button color="primary" style="width:30%;height:40px" (click)="onSearch()">SEARCH FLIGHTS</button>
+            </mat-card-header>
+        </form>
+    </mat-card>
+
+</div>

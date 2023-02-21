@@ -1,0 +1,62 @@
+<div fxLayout="column" class="dialogParent">
+    <div fxLayout="row" fxLayoutAlign="center center" class="titleDialog">My Bookings</div>
+<div class="mat-elevation-z8 table-style">
+    <table mat-table [dataSource]="dataSource">
+
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef style="width:100px"> Id </th>
+            <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="airlineName" style="width:100px">
+            <th mat-header-cell *matHeaderCellDef style="width:100px"> Airline Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.flight.airlineName}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="departureDate">
+            <th mat-header-cell *matHeaderCellDef style="width:100px"> Departure Date </th>
+            <td mat-cell *matCellDef="let element"> {{element.departureDate}}</td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="returnDate">
+            <th mat-header-cell *matHeaderCellDef style="width:100px"> Return Date </th>
+            <td mat-cell *matCellDef="let element"> {{element.returnDate}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="freeMeal">
+            <th mat-header-cell *matHeaderCellDef style="width:100px"> Free Meal </th>
+            <td mat-cell *matCellDef="let element"> {{element.flight.freeMeal}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="numberOfStops">
+            <th mat-header-cell *matHeaderCellDef style="width:100px"> Stops </th>
+            <td mat-cell *matCellDef="let element"> {{element.flight.numberOfStops}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="price">
+            <th mat-header-cell *matHeaderCellDef style="width:100px"> Price </th>
+            <td mat-cell *matCellDef="let element"> {{element.flight.price}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef style="width:100px"> Action </th>
+            <td mat-cell *matCellDef="let element"> 
+                    <mat-icon color="warn" style="cursor:pointer" (click)="deleteBooking(element.id)">delete</mat-icon>
+            </td>
+            
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5]" showFirstLastButtons aria-label="Select page">
+    </mat-paginator>
+</div>
+<div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="5px" class="paddingTop">
+    <button mat-stroked-button class="colorCancel" (click)="closeDialog()">
+        Close
+    </button>
+</div>
+</div>

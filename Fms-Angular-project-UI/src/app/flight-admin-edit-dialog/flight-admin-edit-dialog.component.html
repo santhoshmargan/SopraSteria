@@ -1,0 +1,84 @@
+<div fxLayout="column" class="dialogParent">
+    <div fxLayout="row" fxLayoutAlign="center center" class="titleDialog">Edit Flight</div>
+
+    <div class="dialogItem">
+        <div class="dialogForm" fxLayout="column" fxLayoutAlign="space-between stretch" fxLayoutGap="12px">
+            <form [formGroup]="editFlightForm">
+                <div class="inputContainer">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Flight Code</mat-label>
+                        <input matInput formControlName="flightCode" />
+                        <mat-icon matSuffix>pin</mat-icon>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                        <mat-label>Airline Name</mat-label>
+                        <input matInput formControlName="airlineName" />
+                        <mat-icon matSuffix>airplane_ticket</mat-icon>
+                    </mat-form-field>
+                </div>
+                <div class="inputContainer">
+                    <mat-form-field appearance="outline" class="form-margin">
+                        <mat-label>Source</mat-label>
+                        <mat-icon matSuffix>place</mat-icon>
+                        <mat-select (selectionChange)="onSourceChange($event.value)" formControlName="source">
+                            <mat-option>Select source</mat-option>
+                            <mat-option *ngFor="let source of sources" [value]="source.code">{{source.code}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="form-margin">
+                        <mat-label>Destination</mat-label>
+                        <mat-icon matSuffix>place</mat-icon>
+                        <mat-select formControlName="destination">
+                            <mat-option>Select Destination</mat-option>
+                            <mat-option *ngFor="let destination of destinations" [value]="destination.code">{{destination.code}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="inputContainer">
+                    <mat-form-field appearance="outline">
+                        <mat-label>No. of Stops</mat-label>
+                        <input matInput formControlName="numberOfStops" />
+                        <mat-icon matSuffix>airline_stops</mat-icon>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                        <mat-label>Price</mat-label>
+                        <input matInput formControlName="price" />
+                        <mat-icon matSuffix>currency_rupee</mat-icon>
+                    </mat-form-field>
+
+                </div>
+                <div class="inputContainer">
+
+                    <mat-form-field appearance="outline">
+                        <mat-label>Available Seats</mat-label>
+                        <input matInput formControlName="seatsAvailable" />
+                        <mat-icon matSuffix>airline_seat_recline_extra</mat-icon>
+                    </mat-form-field>
+
+                    <div appearance="outline" style=" margin: 2px 15px;width: 300px;">
+                        <section class="section">
+                            <mat-checkbox class="margin" color="primary" formControlName="available">
+                                Available
+                            </mat-checkbox>
+                            <mat-checkbox class="margin" color="primary" formControlName="freeMeal">
+                                Free Meal
+                            </mat-checkbox>
+                        </section>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="5px" class="paddingTop">
+        <button mat-stroked-button class="colorCancel" (click)="closeDialog()">
+            Cancel
+        </button>
+        <button mat-stroked-button color="accent" (click)="editFlight()">
+            Submit
+        </button>
+    </div>
+</div>

@@ -1,0 +1,50 @@
+<mat-toolbar color="primary" fxLayout="row" fxLayoutAlign="space-between center">
+  <span>
+    <button style="padding:0px;font-size: 25px;
+    font-weight: 500;" mat-button routerLink="/">
+      <mat-icon>home</mat-icon>
+    </button>
+    <button style="padding:0px; font-size: 25px;
+    font-weight: 500;" mat-button routerLink="/">{{title}}</button>
+  </span>
+  <div fxLayout="row" fxShow="false" fxShow.gt-sm>
+    <button mat-button routerLink="/signin" *ngIf="!isLoggedIn">
+      <mat-icon>power_settings_new</mat-icon>
+      Login
+    </button>
+    <button mat-button routerLink="/signup" *ngIf="!isLoggedIn">
+      <mat-icon>app_registration</mat-icon>
+      Register
+    </button>
+    <div *ngIf="isLoggedIn">
+      Welcome, {{username() | titlecase}}
+    </div>
+    <button mat-button *ngIf="isLoggedIn" (click)="logout()">
+      <mat-icon>exit_to_app</mat-icon>
+      Logout
+    </button>
+  </div>
+  <button mat-button [mat-menu-trigger-for]="menu" fxHide="false" fxHide.gt-sm>
+    <mat-icon>menu</mat-icon>
+  </button>
+</mat-toolbar>
+<mat-menu x-position="before" #menu="matMenu">
+  <button mat-menu-item routerLink="/">
+    <mat-icon>home</mat-icon>
+    Home
+  </button>
+  <button mat-menu-item routerLink="/signup">
+    <mat-icon>app_registration</mat-icon>
+    Register
+  </button>
+  <button mat-menu-item routerLink="/signin" *ngIf="isLoggedIn">
+    <mat-icon>power_settings_new</mat-icon>
+    Login
+  </button>
+  <button mat-menu-item *ngIf="isLoggedIn" (click)="logout()">
+    <mat-icon>exit_to_app</mat-icon>
+    Logout
+  </button>
+</mat-menu>
+
+<router-outlet></router-outlet>

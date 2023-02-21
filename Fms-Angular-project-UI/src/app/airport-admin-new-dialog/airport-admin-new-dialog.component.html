@@ -1,0 +1,74 @@
+<div fxLayout="column" class="dialogParent">
+    <div fxLayout="row" fxLayoutAlign="center center" class="titleDialog">Add Airport</div>
+
+    <div class="dialogItem">
+        <div class="dialogForm" fxLayout="column" fxLayoutAlign="space-between stretch" fxLayoutGap="12px">
+            <form [formGroup]="addAirportForm">
+                <div class="inputContainer">
+                    <mat-form-field appearance="outline">
+                        <mat-label>City Code</mat-label>
+                        <input matInput formControlName="cityCode" />
+                        <mat-icon matSuffix>apartment</mat-icon>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                        <mat-label>City Name</mat-label>
+                        <input matInput formControlName="cityName" />
+                        <mat-icon matSuffix>drive_file_rename_outline</mat-icon>
+                    </mat-form-field>
+                </div>
+                <div class="inputContainer">
+
+                    <mat-form-field appearance="outline">
+                        <mat-label>Country Code</mat-label>
+                        <input matInput formControlName="countryCode" />
+                        <mat-icon matSuffix>outlined_flag</mat-icon>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                        <mat-label>Country Name</mat-label>
+                        <input matInput formControlName="countryName" />
+                        <mat-icon matSuffix>dns</mat-icon>
+                    </mat-form-field>
+                </div>
+                <div class="inputContainer">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Lat</mat-label>
+                        <input matInput formControlName="lat" />
+                        <mat-icon matSuffix>place</mat-icon>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                        <mat-label>Lon</mat-label>
+                        <input matInput formControlName="lon" />
+                        <mat-icon matSuffix>place</mat-icon>
+                    </mat-form-field>
+
+                </div>
+                <div class="inputContainer">
+
+                    <mat-form-field appearance="outline">
+                        <mat-label>Name</mat-label>
+                        <input matInput formControlName="name" />
+                        <mat-icon matSuffix>airlines</mat-icon>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                        <mat-label>No of Airports</mat-label>
+                        <input matInput formControlName="numAirports" />
+                        <mat-icon matSuffix>pin</mat-icon>
+                    </mat-form-field>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="5px" class="paddingTop">
+        <button mat-stroked-button class="colorCancel" (click)="closeDialog()">
+            Cancel
+        </button>
+        <button mat-stroked-button color="accent" (click)="addAirport()">
+            Submit
+        </button>
+    </div>
+</div>

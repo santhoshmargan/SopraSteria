@@ -1,0 +1,97 @@
+<div class="container" fxLayout="row" fxLayoutAlign="space-between center">
+
+    <div style="font-size: 17px;font-weight: 500;" fxLayout="row">
+        <mat-icon class="back-btn" (click)="back()">keyboard_backspace</mat-icon>
+        Flight Management
+    </div>
+    <div fxLayout="row">
+        <button mat-raised-button color="primary" (click)="addFlight()"
+        style="height: 38px;margin-top: 10px;margin-right: 10px;">
+            Add Flight
+        </button>
+        <mat-form-field style="margin-top: 5px;">
+            <mat-label>Filter</mat-label>
+            <input matInput [(ngModel)]="filter" (keydown)="applyFilter()" />
+        </mat-form-field>
+    </div>
+</div>
+
+<div class="mat-elevation-z8" style="padding:0 10px">
+    <table mat-table [dataSource]="dataSource">
+
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef> Id </th>
+            <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="airlineName">
+            <th mat-header-cell *matHeaderCellDef> Airline Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.airlineName}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="available">
+            <th mat-header-cell *matHeaderCellDef> Available </th>
+            <td mat-cell *matCellDef="let element">
+                <mat-icon *ngIf="element.available" color="primary">check_circle</mat-icon>
+                <mat-icon *ngIf="!element.available" color="warn">cancel</mat-icon>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="source">
+            <th mat-header-cell *matHeaderCellDef> Source </th>
+            <td mat-cell *matCellDef="let element"> {{element.source}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="destination">
+            <th mat-header-cell *matHeaderCellDef> Destination </th>
+            <td mat-cell *matCellDef="let element"> {{element.destination}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="flightCode">
+            <th mat-header-cell *matHeaderCellDef> Flight Code </th>
+            <td mat-cell *matCellDef="let element"> {{element.flightCode}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="freeMeal">
+            <th mat-header-cell *matHeaderCellDef> Free Meal </th>
+            <td mat-cell *matCellDef="let element">
+                <mat-icon *ngIf="element.freeMeal" color="primary">check_circle</mat-icon>
+                <mat-icon *ngIf="!element.freeMeal" color="warn">cancel</mat-icon>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="numberOfStops">
+            <th mat-header-cell *matHeaderCellDef> Number Of Stops </th>
+            <td mat-cell *matCellDef="let element"> {{element.numberOfStops}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="price">
+            <th mat-header-cell *matHeaderCellDef> Price </th>
+            <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="seatsAvailable">
+            <th mat-header-cell *matHeaderCellDef> Available Seats </th>
+            <td mat-cell *matCellDef="let element"> {{element.seatsAvailable}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef style="margin-left: 50px;"> Actions </th>
+            <td mat-cell *matCellDef="let element">
+                <button mat-button (click)="onEditClick(element)">
+                    <mat-icon color="primary">edit</mat-icon>
+                </button>
+                <button mat-button (click)="onDeleteClick(element.id)">
+                    <mat-icon color="warn">delete
+                    </mat-icon>
+                </button>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[10, 20]" showFirstLastButtons aria-label="Select page">
+    </mat-paginator>
+</div>

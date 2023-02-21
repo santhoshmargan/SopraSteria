@@ -1,0 +1,16 @@
+    .line {
+    flex: 1;
+  }
+  
+  .text {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .bgimg {
+    background-image: url("../../assets/images/background.jpg");
+    height: 92vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }

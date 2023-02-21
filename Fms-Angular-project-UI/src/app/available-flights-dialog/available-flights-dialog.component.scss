@@ -1,0 +1,27 @@
+.inputContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    align-content: center;
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  mat-form-field {
+    margin: 2px 15px;
+    width: 300px;
+}
+
+table {
+    width: 95%;
+  }
+
+.table-style{
+    margin-left: 12px !important;
+    margin-right: 12px !important;
+}  
+
+.mat-input-element:disabled{
+    color: black !important;
+}
